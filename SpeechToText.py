@@ -1,8 +1,26 @@
-from os import environ, path
+from os import path
 import pyaudio
 import sys
 from pocketsphinx.pocketsphinx import *
 from sphinxbase.sphinxbase import *
+
+from textblob import TextBlob
+
+class CutText :
+    # -------FOR TRAIN ONLY-------
+    def get_object (self, text):
+        ans = text[0:-3]
+        print "!!"+ans
+        b = TextBlob(ans)
+        sentence = b.sentences[0]
+        for word, pos in sentence.tags :
+            if pos[0:1] == 'N':
+                print word + " >>N"
+            if pos[0:1] == 'V':
+                print word.pluralize() + " >>vb"
+            print word+" "+pos
+
+
 
 MODELDIR = "/home/uawsscu/PycharmProjects/Project2/model"
 DATADIR = "/home/uawsscu/PycharmProjects/Project2/data"
@@ -39,11 +57,16 @@ while True:
             in_speech_bf = decoder.get_in_speech()
             if not in_speech_bf:
                 decoder.end_utt()
+
                 try:
-                    if decoder.hyp().hypstr != '':
-                        print 'Stream decoding result:', decoder.hyp().hypstr
+                    strDecode = decoder.hyp().hypstr
+                    if strDecode != '':
+                        print 'Stream decoding result:', strDecode
+                        if strDecode[-3:] == 'end':
+                            CutText().get_object(decoder.hyp().hypstr)
                 except AttributeError:
                     pass
+
                 decoder.start_utt()
     else:
         break
