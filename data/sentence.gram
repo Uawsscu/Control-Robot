@@ -1,0 +1,16 @@
+#JSGF V1.0;
+
+/**
+ * JSGF Grammar for Turtle example
+ */
+
+grammar sentence;
+
+public <move> = <train> | <command> ;
+
+public <move2> = go <direction> <distance> [meter | meters];
+
+<train> = forward | backward;
+<command> = jerry;
+
+<distance> = one | two | three | four | five | six | seven | eight | nine | ten;
