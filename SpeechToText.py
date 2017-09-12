@@ -48,6 +48,11 @@ while True:
                         print 'Stream decoding result:', strDecode
                         if strDecode[-3:] == 'end':
                             get_object_train(decoder.hyp().hypstr)
+                        elif strDecode[:5] == 'jerry':
+                            get_object_command(strDecode)
+                            get_verb_command(strDecode)
+                        elif strDecode[:11] == 'do you know':
+                            get_object_question(strDecode)
                 except AttributeError:
                     pass
 
