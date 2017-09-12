@@ -1,5 +1,6 @@
 from textblob import TextBlob
 from capture import *
+from Kinect_detect import *
 
 def get_object_train(text):
     # CUT "END"
@@ -27,7 +28,7 @@ def get_object_command(text):
     for word, pos in sentence.tags:
         if pos[0:1] == 'N':
             # CAPTURE
-            # cap_ture(word)
+            Detect(word,'command')
             print word + " >>N"
             break
     return word
@@ -53,7 +54,7 @@ def get_object_question(text):
     for word, pos in sentence.tags:
         if pos[0:1] == 'N':
             # CAPTURE
-            # cap_ture(word)
+            Detect(word, "question")
             print word + " >>N"
             break
     return word

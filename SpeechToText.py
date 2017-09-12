@@ -6,11 +6,6 @@ from sphinxbase.sphinxbase import *
 
 from cuttext import *
 
-
-
-
-
-
 MODELDIR = "/home/uawsscu/PycharmProjects/Project2/model"
 DATADIR = "/home/uawsscu/PycharmProjects/Project2/data"
 
