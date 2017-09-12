@@ -4,24 +4,7 @@ import sys
 from pocketsphinx.pocketsphinx import *
 from sphinxbase.sphinxbase import *
 
-from textblob import TextBlob
-
-from capture import *
-
-
-class CutText():
-    # -------FOR TRAIN ONLY-------
-    def get_object(self, text):  # this is a ball end
-        # CUT_"END" [0:3]
-        ans = text[0:-3]
-        print "!!"+ans
-        b = TextBlob(ans)
-        sentence = b.sentences[0]
-        for word, pos in sentence.tags :
-            if pos[0:1] == 'N':
-                print word + " >>N"
-                return word
-
+from cuttext import *
 
 
 
@@ -69,7 +52,7 @@ while True:
                     if strDecode != '':
                         print 'Stream decoding result:', strDecode
                         if strDecode[-3:] == 'end':
-                            CutText().get_object(decoder.hyp().hypstr)
+                            get_object_train(decoder.hyp().hypstr)
                 except AttributeError:
                     pass
 
