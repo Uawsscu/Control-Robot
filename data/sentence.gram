@@ -6,11 +6,12 @@
 
 grammar sentence;
 
-public <move> = <train> | <command> ;
+public <move> = <train> | <command> | <question>;
 
-public <move2> = go <direction> <distance> [meter | meters];
+<train> = this is a <obj> end ;
+<command> = [jerry] <verb> <obj> | [jerry] <etc> ;
+<question> = [do you know ] <obj> ;
 
-<train> = forward | backward;
-<command> = jerry;
-
-<distance> = one | two | three | four | five | six | seven | eight | nine | ten;
+<obj> =  ball | box | car | can | bottle | book ;
+<verb> = grab | touch | pick ;
+<etc> = [move the <obj> to the] [left | right] ;
