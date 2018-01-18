@@ -10,6 +10,7 @@ MODELDIR = "/home/uawsscu/PycharmProjects/Project2/model"
 DATADIR = "/home/uawsscu/PycharmProjects/Project2/data"
 
 config = Decoder.default_config()
+config.set_string('-logfn', '/dev/null')
 config.set_string('-hmm', path.join(MODELDIR, 'en-us/en-us'))
 config.set_string('-lm', path.join(MODELDIR, 'en-us/en-us.lm.bin'))
 config.set_string('-dict', path.join(MODELDIR, 'en-us/cmudict-en-us.dict'))
@@ -31,12 +32,10 @@ stream.start_stream()
 in_speech_bf = False
 decoder.start_utt()
 while True:
-    buf = stream.read(1024)
+    buf = stream.read(20)
     if buf:
         decoder.process_raw(buf, False, False)
-        if decoder.get_in_speech():
-            sys.stdout.write('.')
-            sys.stdout.flush()
+
         if decoder.get_in_speech() != in_speech_bf:
             in_speech_bf = decoder.get_in_speech()
             if not in_speech_bf:
@@ -47,11 +46,13 @@ while True:
                     if strDecode != '':
                         print 'Stream decoding result:', strDecode
                         if strDecode[-3:] == 'end':
+                            print "1"
                             get_object_train(decoder.hyp().hypstr)
                         elif strDecode[:5] == 'jerry':
+                            print "2"
                             get_object_command(strDecode)
-                            get_verb_command(strDecode)
                         elif strDecode[:11] == 'do you know':
+                            print "3"
                             get_object_question(strDecode)
                 except AttributeError:
                     pass

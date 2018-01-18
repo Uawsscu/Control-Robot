@@ -51,24 +51,23 @@ def speech() :
                         strDecode = decoder.hyp().hypstr
 
                         if strDecode != '':
-                            if strDecode == 'turn on':
+
+                            if strDecode == 'torque on':
                                 printResulf(strDecode)
                                 talker(1)
-                            elif strDecode == 'turn off':
+                            elif strDecode == 'torque off':
                                 printResulf(strDecode)
-                                talker(0)
-                            elif strDecode[-3:] == 'end':
+                                talker(2)
+                            elif strDecode == 'turn left':
                                 printResulf(strDecode)
-                                print "1"
-                                # get_object_train(decoder.hyp().hypstr)
-                            elif strDecode[:5] == 'jerry':
+                                talker(3)
+                            elif strDecode == 'turn right':
                                 printResulf(strDecode)
-                                print "2"
-                                # get_object_command(strDecode)
-                            elif strDecode[:11] == 'do you know':
+                                talker(4)
+                            elif strDecode == 'turn center':
                                 printResulf(strDecode)
-                                print "3"
-                                # get_object_question(strDecode)
+                                talker(5)
+
                     except AttributeError:
                         pass
 
@@ -80,12 +79,12 @@ def speech() :
 
 
 def talker(msg):
-    pub = rospy.Publisher('setLed', UInt8, queue_size=10)
+    pub = rospy.Publisher('setMotor', UInt8, queue_size=10)
     rospy.init_node('talker', anonymous=True)
     pub.publish(int(msg))
 
 def printResulf(strDecode) :
-    print strDecode
+    print '--- START ---', strDecode
 
 if __name__ == '__main__':
     speech()

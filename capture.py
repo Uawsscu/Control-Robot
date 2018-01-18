@@ -13,7 +13,7 @@ def set_path(namePic):
 def cap_ture(pathPic):
     setPath = '/home/uawsscu/PycharmProjects/Project2/image/' + pathPic + '.jpg'
     while 1:
-        print "ok"
+        print "ok cap_ture"
         frame = get_video()
         cv2.imshow('RGB image', frame)
 
@@ -26,4 +26,4 @@ def cap_ture(pathPic):
 
     cv2.destroyAllWindows()
 
-cap_ture('messigray')
+#cap_ture('messigray')

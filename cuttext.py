@@ -4,19 +4,32 @@ from Kinect_detect import *
 
 def get_object_train(text):
     # CUT "END"
+    nounP = ''
+    np = False
     print "Train ---Obj---"
-    ans = text[6:-3]
-  #  print "!!" + ans
+    ans = text[0:-3]
+    #print "!!" + ans
     b = TextBlob(ans)
-    sentence = b.sentences[0]
-    print sentence
-    for word, pos in sentence.tags:
-        if pos[0:1] == 'N':
-            # CAPTURE
-            cap_ture(word)
-            print word + " >>N"
-            break
-    return word
+    for item in b.noun_phrases:
+        print item
+        np = True
+        nounP =item
+
+    if(np==False) :
+        sentence = b.sentences[0]
+        print sentence
+
+        for word, pos in sentence.tags:
+            if pos[0:1] == 'N':
+                # CAPTURE
+                cap_ture(word)
+                print word + " >>N"
+                nounP =word
+                break
+    return nounP
+
+
+
 
 def get_object_command(text):
     print "Command ---Obj---"
@@ -64,3 +77,4 @@ def get_object_question(text):
 #get_object_command(sub)
 #get_verb_command(sub)
 #get_object_train(sub)
+get_object_train("This is a red dog end")

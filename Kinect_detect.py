@@ -13,7 +13,7 @@ def Detect(objectName,type):
     start = time.time()
     time.clock()
     elapsed = 0
-    seconds = 20  # 20 S.
+    seconds = 10  # 20 S.
     MIN_MATCH_COUNT = 30
     setpath = '/home/uawsscu/PycharmProjects/Project2/image/' + objectName + '.jpg'
     detector = cv2.SIFT()
@@ -25,7 +25,7 @@ def Detect(objectName,type):
     trainImg = cv2.imread(setpath, 0)
     trainKP, trainDesc = detector.detectAndCompute(trainImg, None)
 
-    QUESTION_COUNT = False
+    QUESTION_COUNT = -1
     while elapsed < seconds:
         QueryImgBGR = get_video()
 
@@ -39,7 +39,7 @@ def Detect(objectName,type):
                 goodMatch.append(m)
         if len(goodMatch) > MIN_MATCH_COUNT:
             if type == "question" :
-                QUESTION_COUNT = True
+                QUESTION_COUNT = 1
                 print "Yes"
                 break
 
@@ -67,9 +67,9 @@ def Detect(objectName,type):
         elapsed = time.time() - start
         time.sleep(1)
 
-    if QUESTION_COUNT == False :
+    if QUESTION_COUNT == -1 :
         print "NO"
     cv2.destroyAllWindows()
 
-Detect("book", 'question')
+Detect("pen", 'question')
 
